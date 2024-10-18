@@ -2,37 +2,37 @@ pipeline {
     agent {
         node {
             label 'maven'
-        } 
+        }
     }
-    environment{
-         PATH ="/opt/apache-maven-3.9.9/bin:$PATH"
+    environment {
+        PATH = "/opt/apache-maven-3.9.9/bin:$PATH"
     }
     stages {
-        stage("build"){
+        stage("Build") {
             steps {
                 echo "........build started......."
                 sh 'mvn clean deploy'
-                  echo ".........build completed..........."
+                echo ".........build completed..........."
             }
         }
-        stage("test"){
-            steps{
+        stage("Test") {
+            steps {
                 echo ".............unit test started....."
-                sh 'mvn surefire-report:report'
+                sh 'mvn test'
                 echo "........unit test completed....."
             }
         }
-        stage("SonarQube analysis"){
-            environment{
+        stage("SonarQube analysis") {
+            environment {
                 scannerHome = tool 'galaxy-sonar-scanner'
             }
-            steps{
-                withSonarQubeEnv('sonarqube-server'){
+            steps {
+                echo "........SonarQube analysis started......."
+                withSonarQubeEnv('sonarqube-server') {
                     sh "${scannerHome}/bin/sonar-scanner -X"
                 }
+                echo "........SonarQube analysis completed......."
             }
         }
     }
-
-
 }

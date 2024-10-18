@@ -15,7 +15,7 @@ pipeline {
         stage("SonarQube analysis"){
             environment{
                 scannerHome = tool 'galaxy-sonar-scanner'
-                echo "SonarQube Scanner Home: ${scannerHome}"
+                echo "sonalQube ${scannerHome}"
             }
             steps{
                 withSonarQubeEnv('sonarqube-server'){

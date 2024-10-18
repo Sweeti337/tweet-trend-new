@@ -34,5 +34,19 @@ pipeline {
                 echo "........SonarQube analysis completed......."
             }
         }
+        stage("Quality Gate") {
+            steps {
+                echo "........Waiting for Quality Gate result......."
+                // Wait for SonarQube quality gate result
+                script {
+                    def qualityGate = waitForQualityGate()
+                    if (qualityGate.status != 'OK') {
+                        error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+                    }
+                }
+                echo "........Quality Gate passed......."
+            }
+        }
     }
+
 }

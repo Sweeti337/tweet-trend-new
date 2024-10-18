@@ -37,6 +37,8 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 echo "........Waiting for Quality Gate result......."
+        // Add a small delay before checking
+                  sleep time: 30, unit: 'SECONDS'
                 // Wait for SonarQube quality gate result
                 script {
                     def qualityGate = waitForQualityGate()

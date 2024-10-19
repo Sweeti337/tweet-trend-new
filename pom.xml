@@ -84,7 +84,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
-                <mainClass>com.example.YourApplicationClass</mainClass> <!-- Update this to your actual main class -->
+                <mainClass>com.stalin.demo.DemoApplication</mainClass> <!-- Update this to your actual main class -->
             </configuration>
         </plugin>
 

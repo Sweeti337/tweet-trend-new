@@ -61,7 +61,7 @@ pipeline {
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "libs-release-local/{1}",
+                              "target": " /home/ubuntu/jenkins/workspace/ttrendmultibranch_main/jarstaging/com/valaxy/demo-workshop/2.1.2",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]

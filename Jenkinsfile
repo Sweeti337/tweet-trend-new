@@ -1,5 +1,5 @@
 
-def registry = 'https://tojo26.jfrog.io'
+def registry = 'https://tojo26.jfrog.io/artifactory'
 pipeline {
     agent {
         node {
@@ -55,7 +55,7 @@ pipeline {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry ,  credentialsId:"jfrog-cred"
+                     def server = Artifactory.newServer url:registry ,  credentialsId:"jfrogcred"
                     //  def buildId = env.BUILD_ID ?: 'unknown-build'
                     //  def commitId = GIT_COMMIT ?: 'unknown-commit'
                     //  def version = "2.1.2"

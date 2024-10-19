@@ -59,6 +59,8 @@ pipeline {
                     //  def buildId = env.BUILD_ID ?: 'unknown-build'
                     //  def commitId = GIT_COMMIT ?: 'unknown-commit'
                     //  def version = "2.1.2"
+                    def buildId = env.BUILD_ID ?: 'unknown-build' // This should work now
+                    def commitId = env.GIT_COMMIT ?: 'unknown-commit' // Ensure GIT_COMMIT is also defined
                      def properties = "buildid=${buildId},commitid=${commitId}"
                     //  def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{

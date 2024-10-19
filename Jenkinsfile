@@ -66,7 +66,7 @@ pipeline {
                             {
                               "pattern": "jarstaging/(*)",
                               "target": "libs-release-local/demo-workshop/${version}/",
-                              "flat": "false",
+                              "flat": "true",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]
                             }

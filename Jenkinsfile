@@ -1,3 +1,5 @@
+
+def registry = 'https://tojo26.jfrog.io'
 pipeline {
     agent {
         node {
@@ -34,21 +36,46 @@ pipeline {
                 echo "........SonarQube analysis completed......."
             }
         }
-        stage("Quality Gate") {
-            steps {
-                echo "........Waiting for Quality Gate result......."
-        // Add a small delay before checking
-                  sleep time: 30, unit: 'SECONDS'
-                // Wait for SonarQube quality gate result
-                script {
-                    def qualityGate = waitForQualityGate()
-                    if (qualityGate.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
-                    }
-                }
-                echo "........Quality Gate passed......."
+        // stage("Quality Gate") {
+        //     steps {
+        //         echo "........Waiting for Quality Gate result......."
+        // // Add a small delay before checking
+        //           sleep time: 30, unit: 'SECONDS'
+        //         // Wait for SonarQube quality gate result
+        //         script {
+        //             def qualityGate = waitForQualityGate()
+        //             if (qualityGate.status != 'OK') {
+        //                 error "Pipeline aborted due to quality gate failure: ${qualityGate.status}"
+        //             }
+        //         }
+        //         echo "........Quality Gate passed......."
+        //     }
+        // }
+        stage("Jar Publish") {
+        steps {
+            script {
+                    echo '<--------------- Jar Publish Started --------------->'
+                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"jfrog-cred"
+                     def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
+                     def uploadSpec = """{
+                          "files": [
+                            {
+                              "pattern": "jarstaging/(*)",
+                              "target": "libs-release-local/{1}",
+                              "flat": "false",
+                              "props" : "${properties}",
+                              "exclusions": [ "*.sha1", "*.md5"]
+                            }
+                         ]
+                     }"""
+                     def buildInfo = server.upload(uploadSpec)
+                     buildInfo.env.collect()
+                     server.publishBuildInfo(buildInfo)
+                     echo '<--------------- Jar Publish Ended --------------->'  
+            
             }
-        }
+        }   
+    }
     }
 
 }

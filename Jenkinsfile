@@ -1,5 +1,5 @@
 
-def registry = 'https://tojo26.jfrog.io/artifactory/maven-libs-release/'
+def registry = 'https://tojo26.jfrog.io'
 pipeline {
     agent {
         node {
@@ -56,16 +56,16 @@ pipeline {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
                      def server = Artifactory.newServer url:registry ,  credentialsId:"jfrog-cred"
-                     def buildId = env.BUILD_ID ?: 'unknown-build'
-                     def commitId = GIT_COMMIT ?: 'unknown-commit'
-                     def version = "2.1.2"
+                    //  def buildId = env.BUILD_ID ?: 'unknown-build'
+                    //  def commitId = GIT_COMMIT ?: 'unknown-commit'
+                    //  def version = "2.1.2"
                      def properties = "buildid=${buildId},commitid=${commitId}"
                     //  def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "libs-release-local/demo-workshop/${version}/",
+                              "target": "libs-release-local-libs-release/{1}/",
                               "flat": "true",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]

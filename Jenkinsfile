@@ -55,15 +55,17 @@ pipeline {
         steps {
             script {
                     echo '<--------------- Jar Publish Started --------------->'
-                     def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"jfrog-cred"
+                     def server = Artifactory.newServer url: registry+"/artifactory" ,  credentialsId:"jfrog-cred"
                      def buildId = env.BUILD_ID ?: 'unknown-build'
                      def commitId = GIT_COMMIT ?: 'unknown-commit'
-                     def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
+                     def version = "2.1.2"
+                     def properties = "buildid=${buildId},commitid=${commitId}"
+                    //  def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
                      def uploadSpec = """{
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "libs-release-local/demo-workshop-2.1.2",
+                              "target": "libs-release-local/demo-workshop/${version}/",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]

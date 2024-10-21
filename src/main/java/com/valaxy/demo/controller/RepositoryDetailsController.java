@@ -1,4 +1,4 @@
-package com.valaxy.demo.controller;
+package com.valaxy.demo;
 
 import java.io.IOException;
 import java.util.HashMap;

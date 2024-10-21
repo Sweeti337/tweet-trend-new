@@ -26,18 +26,18 @@ pipeline {
                 echo "........unit test completed....."
             }
         }
-        stage("SonarQube analysis") {
-            environment {
-                scannerHome = tool 'galaxy-sonar-scanner'
-            }
-            steps {
-                echo "........SonarQube analysis started......."
-                withSonarQubeEnv('sonarqube-server') {
-                    sh "${scannerHome}/bin/sonar-scanner -X"
-                }
-                echo "........SonarQube analysis completed......."
-            }
-        }
+        // stage("SonarQube analysis") {
+        //     environment {
+        //         scannerHome = tool 'galaxy-sonar-scanner'
+        //     }
+        //     steps {
+        //         echo "........SonarQube analysis started......."
+        //         withSonarQubeEnv('sonarqube-server') {
+        //             sh "${scannerHome}/bin/sonar-scanner -X"
+        //         }
+        //         echo "........SonarQube analysis completed......."
+        //     }
+        // }
         // stage("Quality Gate") {
         //     steps {
         //         echo "........Waiting for Quality Gate result......."

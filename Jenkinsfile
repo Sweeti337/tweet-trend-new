@@ -1,7 +1,7 @@
 
 def registry = 'https://tojo26.jfrog.io/artifactory'
 def imageName = 'tojo26.jfrog.io/valaxytest-docker-local/ttrendfinal'
-def version   = '2.1.2'
+def version   = '2.1.3'
 pipeline {
     agent {
         node {
